@@ -1,0 +1,3 @@
+[submodule "pdfannots"]
+	path = pdfannots
+	url = git@github.com:0xabu/pdfannots.git
