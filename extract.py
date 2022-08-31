@@ -1,9 +1,12 @@
 import json
 import subprocess
 import sys
+from os import PathLike
+from pathlib import Path
+from typing import Union
 
 
-def extract(pdf_path: str) -> None:
+def extract(pdf_path: Union[str, PathLike]) -> None:
     # fmt: off
     proc = subprocess.run(
         [
@@ -14,6 +17,7 @@ def extract(pdf_path: str) -> None:
         ],
         stdout=subprocess.PIPE,
         stderr=sys.stderr,
+        cwd=Path(__file__).parent
     )
     # fmt: on
 
@@ -35,7 +39,7 @@ def main() -> None:
     if len(sys.argv) != 2:
         print("usage: python extract.py INFILE")
         sys.exit(1)
-    extract(sys.argv[1])
+    extract(Path(sys.argv[1]).resolve())
 
 
 if __name__ == "__main__":
