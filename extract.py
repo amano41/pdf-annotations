@@ -9,12 +9,7 @@ from typing import Union
 def extract(pdf_path: Union[str, PathLike]) -> None:
     # fmt: off
     proc = subprocess.run(
-        [
-            "pipenv", "run", "python",
-            "./pdfannots/pdfannots.py",
-            pdf_path,
-            "-f", "json",
-        ],
+        ["pdfannots", pdf_path, "-f", "json"],
         stdout=subprocess.PIPE,
         stderr=sys.stderr,
         cwd=Path(__file__).parent

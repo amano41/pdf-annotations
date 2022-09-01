@@ -6,7 +6,7 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-pdfminer-six = "*"
+pdfannots = "*"
 
 [requires]
 python_version = "3"
