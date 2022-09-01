@@ -19,15 +19,31 @@ def extract(pdf_path: Union[str, PathLike]) -> None:
     json_text = proc.stdout.replace(b"\r", b"").decode("utf-8")
     json_data = json.loads(json_text)
 
-    print("[[Highlights]]")
-    page = 0
+    annots = {}
     for entry in json_data:
-        if entry["type"] != "Highlight":
-            continue
-        if page != entry["page"]:
-            page = entry["page"]
-            print(f"\np. {page}")
-        print(f"\t{entry['text']}")
+        if "contents" in entry:
+            section = "Note"
+        else:
+            section = entry["type"]
+        section_data = annots.setdefault(section, {})
+        page_data = section_data.setdefault(entry["page"], [])
+        if "contents" in entry:
+            page_data.append(entry["contents"])
+        elif "text" in entry:
+            page_data.append(entry["text"])
+
+    SECTIONS = ("Note", "Highlight", "Underline")
+    for section in sorted(annots.keys(), key=lambda x: SECTIONS.index(x) if x in SECTIONS else 99):
+        print(f"[[{section}s]]")
+        curr_page = 0
+        for page in annots[section].keys():
+            if page != curr_page:
+                print(f"\np.{page}")
+                curr_page = page
+            for text in annots[section][page]:
+                if text:
+                    print(f"\t{text}")
+        print("")
 
 
 def main() -> None:
