@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "pdf-annotations"
+version = "0.1.0"
+description = ""
+authors = ["Yoichi Amano <amano.yoichi@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pdfannots = "^0.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
