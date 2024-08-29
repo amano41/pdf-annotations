@@ -48,7 +48,7 @@ def extract(pdf_path: Union[str, PathLike]) -> None:
 
 def main() -> None:
     if len(sys.argv) != 2:
-        print("usage: python extract.py INFILE")
+        print("usage: python annots.py INFILE")
         sys.exit(1)
     extract(Path(sys.argv[1]).resolve())
 
