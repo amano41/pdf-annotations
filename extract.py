@@ -34,15 +34,15 @@ def extract(pdf_path: Union[str, PathLike]) -> None:
 
     SECTIONS = ("Note", "Highlight", "Underline")
     for section in sorted(annots.keys(), key=lambda x: SECTIONS.index(x) if x in SECTIONS else 99):
-        print(f"[[{section}s]]")
+        print(f"## {section}s")
         curr_page = 0
         for page in annots[section].keys():
             if page != curr_page:
-                print(f"\np.{page}")
+                print(f"\np.{page}\n")
                 curr_page = page
             for text in annots[section][page]:
                 if text:
-                    print(f"\t{text}")
+                    print(f"- {text}")
         print("")
 
 
